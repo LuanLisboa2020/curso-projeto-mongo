@@ -17,17 +17,7 @@ public class UserService {
 	@Autowired
 	private UserRepository repo;
 	
-	@Autowired
-	private MongoTemplate mongoTemplate;
-	
 	public List<User> findAll() {
 		return repo.findAll();
 	}
-	
-    @PostConstruct
-    public void checkDatabase() {
-        System.out.println(">>> BANCO CONECTADO: " + mongoTemplate.getDb().getName());
-        System.out.println(">>> COLLECTIONS: " + mongoTemplate.getCollectionNames());
-    }
-
 }
