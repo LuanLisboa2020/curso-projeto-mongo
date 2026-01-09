@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import com.luanlisboa.workshopmongo.domain.Post;
 import com.luanlisboa.workshopmongo.domain.User;
 import com.luanlisboa.workshopmongo.dto.AuthorDTO;
+import com.luanlisboa.workshopmongo.dto.CommentDTO;
 import com.luanlisboa.workshopmongo.repository.PostRepository;
 import com.luanlisboa.workshopmongo.repository.UserRepository;
 
@@ -32,6 +33,7 @@ public class Instantiation implements CommandLineRunner {
 		userRepository.deleteAll();
 		postRepository.deleteAll();
 		
+		
 		User maria = new User(null, "Maria Brown", "maria@gmail.com");
 		User alex = new User(null, "Alex Silva", "alex@gmail.com");
 		User luan = new User(null, "Luan Lisboa", "luan@gmail.com");
@@ -40,6 +42,13 @@ public class Instantiation implements CommandLineRunner {
 		
 		Post post1 = new Post(null, sdf.parse("21/03/2025"), "Partiu viagem", "Vou viajar para São Paulo. Abraços!",new AuthorDTO(maria));
 		Post post2 = new Post(null, sdf.parse("23/03/2025"), "Bom dia!", "Acordei feliz hoje!",new AuthorDTO(maria));
+		
+		CommentDTO c1 = new CommentDTO("Boa viagem mano!", sdf.parse("21/03/2025"), new AuthorDTO(alex));
+		CommentDTO c2 = new CommentDTO("Aproveite", sdf.parse("22/03/2025"), new AuthorDTO(luan));
+		CommentDTO c3 = new CommentDTO("Tenha uma ótimo dia!", sdf.parse("23/03/2025"), new AuthorDTO(alex));
+		
+		post1.getComments().addAll(Arrays.asList(c1, c2));
+		post2.getComments().addAll(Arrays.asList(c3));
 		
 		postRepository.saveAll(Arrays.asList(post1, post2));
 		
